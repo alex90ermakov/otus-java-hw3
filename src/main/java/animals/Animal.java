@@ -72,6 +72,9 @@ public abstract class Animal {
         else {
             return "лет";
         }
+
+        //конструктор
+
     }
 
 
