@@ -7,9 +7,15 @@ public abstract class Animal {
     private int weight;
     private String color;
 
+    //конструктор
+    public Animal(String name, int age, int weight, String color) {
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+        this.color = color;
+    }
+
     //геттеры и сеттеры
-
-
     public String getName() {
         return name;
     }
@@ -73,9 +79,6 @@ public abstract class Animal {
             return "лет";
         }
 
-        //конструктор
-
     }
-
 
 }
