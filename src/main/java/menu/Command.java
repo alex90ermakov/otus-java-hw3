@@ -1,14 +1,14 @@
 package menu;
 
-public enum Commands {
+public enum Command {
     ADD,
     LIST,
     EXIT;
 
 
-    public static Commands fromString(String command) {
+    public static Command fromString(String command) {
         try {
-            return Commands.valueOf(command.trim().toUpperCase());
+            return Command.valueOf(command.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
             //System.out.println("Команда " + command+ " не опознана");
             return null;
