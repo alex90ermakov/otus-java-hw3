@@ -26,7 +26,7 @@ public class Main {
             }
             //переключатель комманд.
             switch (command) {
-                case ADD -> {
+                case ADD:
                     System.out.println("Выберите животное: cat/dog/duck");
                     input = scanner.nextLine();
                     String type;
@@ -53,7 +53,25 @@ public class Main {
                     weight = Integer.parseInt(scanner.nextLine());
                     System.out.println("Введите цвет животного");
                     color = scanner.nextLine().trim().toUpperCase();
-                }
+                    break;
+
+                case LIST:
+                    if (animals.isEmpty()) {
+                        System.out.print("Список пуст, добавьте животное Add / Exit : ");
+                    } else {
+                        for (Animal animal : animals) {
+                            System.out.println(animal.toString());
+                        }
+                        System.out.print("Вводи команду Add / List / Exit : ");
+                    }
+                    break;
+
+                case EXIT:
+                        System.out.println("Выход");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Не верная команда");;
             }
         }
     }
