@@ -29,7 +29,7 @@ public class Main {
             switch (command) {
                 case ADD:
                     System.out.println("Выберите животное: cat/dog/duck");
-                    input = scanner.nextLine();
+
                     String type;
                     boolean rightType = false;
                     do{
