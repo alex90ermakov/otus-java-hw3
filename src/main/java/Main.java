@@ -25,7 +25,7 @@ public class Main {
                 System.out.print("Неверная команда, попробуйте еще : ");
                 continue;
             }
-            //переключатель комманд.
+            //переключатель команд.
             switch (command) {
                 case ADD:
                     System.out.println("Выберите животное: cat/dog/duck");
