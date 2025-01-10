@@ -1,5 +1,6 @@
 
 import animals.Animal;
+import data.AnimalFactory;
 import menu.Command;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,15 @@ public class Main {
                     weight = Integer.parseInt(scanner.nextLine());
                     System.out.println("Введите цвет животного");
                     color = scanner.nextLine().trim().toUpperCase();
+
+                    try {
+                        Animal newAnimal = AnimalFactory.createAnimal(type, name, age, weight, color);
+                        animals.add(newAnimal);
+                        newAnimal.say();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    System.out.print("Вводи команду Add / List / Exit : ");
                     break;
 
                 case LIST:
