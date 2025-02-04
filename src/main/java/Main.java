@@ -1,6 +1,11 @@
 
 import animals.Animal;
+import animals.AnimalType;
+import animals.pets.Cat;
+import animals.pets.Dog;
 import data.AnimalFactory;
+import data.InputIntValidator;
+import data.InputStringValidator;
 import menu.Command;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,52 +13,54 @@ import java.util.Scanner;
 
 public class Main {
     public static void main (String[] args) {
-        //Добавмил сканнер
+        //Добавил сканнер
         Scanner scanner = new Scanner(System.in);
+
+        //Добавил валидатор для int значений.
+        InputIntValidator validator = new InputIntValidator(scanner);
+        InputStringValidator validator1 = new InputStringValidator(scanner);
+
         //Создал ArrayList Animal
         List<Animal> animals = new ArrayList<>();
+
         //меню
-        boolean menu = true;
-        while (menu) {      //цикл для меню пока не выйдем командой exit.
+        while (true) {
             System.out.println("Привет! Вводи команду Add / List / Exit : ");
+            Command command = null;
+            do {
+                String input = scanner.nextLine().toUpperCase().trim();
+                try {
+                    command = Command.valueOf(input);
+                }catch (IllegalArgumentException e){
+                    System.out.print("Неверная команда, попробуйте еще : ");
+                }
+            }while (command == null);
 
-            String input = scanner.nextLine().toUpperCase().trim();
-
-            Command command = Command.fromString(input);        //ввод комманд из строки input.
-
-            if (command == null) {                               // проверяет чтобы в команде не был null.
-                System.out.print("Неверная команда, попробуйте еще : ");
-                continue;
-            }
-            //переключатель команд.
+            //переключатель комманд.
             switch (command) {
                 case ADD:
                     System.out.println("Выберите животное: cat/dog/duck");
 
-                    String type;
-                    boolean rightType = false;
-                    do{
-                        type = scanner.nextLine().trim().toUpperCase();
-                      if ("CAT".equals(type) || "DOG".equals(type) || "DUCK".equals(type)){
-                          rightType = true;
-                      }else {
-                          System.out.println("Неизвестное животное, попробуйте еще раз");
-                      }
-                    } while (!rightType);
+                    AnimalType animalType = null;
+                    do {
+                        String input = scanner.nextLine().trim().toUpperCase();
+                        try {
+                            animalType = AnimalType.valueOf(input);
+                        }catch (IllegalArgumentException  e){
+                            System.out.println("Неизвестное животное, попробуйте еще раз");
+                        }
+                    }while (animalType == null);
 
-                    String name;
-                    int age;
-                    int weight;
-                    String color;
+                    String type = animalType.name();
 
-                    System.out.println("Введите имя животного");
-                    name = scanner.nextLine().trim();
-                    System.out.println("Введите возраст животного");
-                    age = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Введите вес животного");
-                    weight = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Введите цвет животного");
-                    color = scanner.nextLine().trim().toUpperCase();
+                    //Проверка на ввод int значений возраста и веса.
+                    String name = validator1.getValidInput("Как зовут животное?", "Имя должно", 1,15).trim().toUpperCase();
+
+                    int age = validator.getValidInput("Сколько ему лет?", "Возраст должен", 1, 20);
+
+                    int weight = validator.getValidInput("Сколько оно весит?", "Вес должен", 1, 100);
+
+                    String color = validator1.getValidInput("Какого цвета животное?", "Вводи", 1, 15).trim().toUpperCase();
 
                     try {
                         Animal newAnimal = AnimalFactory.createAnimal(type, name, age, weight, color);
@@ -77,7 +84,7 @@ public class Main {
                     break;
 
                 case EXIT:
-                        System.out.println("Выход");
+                    System.out.println("Выход");
                     scanner.close();
                     System.exit(0);
                 default:
