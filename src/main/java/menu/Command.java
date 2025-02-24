@@ -1,5 +1,8 @@
 package menu;
 
 public enum Command {
-    ADD, LIST, EXIT;
+    ADD,
+    LIST,
+    UPDATE,
+    EXIT;
 }
